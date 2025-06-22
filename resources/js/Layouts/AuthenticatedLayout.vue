@@ -78,7 +78,7 @@ onMounted(() => {
 
                             </NavLink>
                             <NavLink
-                                v-if="$page.props.auth?.is_admin || $page.props.auth?.is_admin"
+                                v-if="$page.props.auth?.is_admin || $page.props.auth?.is_client"
                                 :href="$page.props.auth?.is_admin?route('admin.chat.index'):route('chat.index')"
                                 class="text-gray-700 dark:text-white"
                                 :active="$page.props.auth?.is_admin?route().current('admin.chat.index'):route().current('chat.index')
