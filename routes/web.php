@@ -24,7 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -47,26 +46,17 @@ Route::get('/clear-locale', function () {
     return redirect()->back();
 })->name('clear.locale');
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
-    })->name('admin.dashboard');
+    })->name('admin.dashboard.index');
 
     Route::get('/logs', [AdminLogsController::class, 'index'])->name('admin.logs.index');
 
     Route::get('/requests', [AdminRequestsController::class, 'index'])->name('admin.requests.index');
-    Route::get('/chat', [ChatController::class, 'index'])->name('admin.chat.index');
 
-
-})->middleware(['auth', 'verified']);
-Route::get('/upload-env-to-s3', function () {
-    $url = Storage::disk('s3')->temporaryUrl(
-        'backups/.env',
-        now()->addMinutes(10) // Срок действия ссылки
-    );
-
-    return $url;
 });
+
 
 
 require __DIR__.'/auth.php';

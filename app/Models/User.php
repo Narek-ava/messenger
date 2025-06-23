@@ -3,21 +3,20 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use RTippin\Messenger\Contracts\MessengerProvider;
-use RTippin\Messenger\Support\Traits\IsMessengerProvider;
-use RTippin\Messenger\Traits\Messageable;
+
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
-class User extends Authenticatable implements HasMedia, MessengerProvider
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles,InteractsWithMedia, HasTranslations,Messageable;
+    use HasFactory, Notifiable, HasRoles,InteractsWithMedia, HasTranslations;
 
     /**
      * The attributes that are mass assignable.

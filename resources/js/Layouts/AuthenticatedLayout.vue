@@ -56,7 +56,7 @@ onMounted(() => {
                             <NavLink
                                 :href="route('dashboard')"
                                 class="text-gray-700 dark:text-white"
-                                :active="route().current('dashboard')">
+                                :active="route().current('admin.dashboard.index')">
                                 {{ $page.props.translations.dashboard}}
                             </NavLink>
                             <NavLink
@@ -77,15 +77,7 @@ onMounted(() => {
                                 {{ $page.props.translations.requests}}
 
                             </NavLink>
-                            <NavLink
-                                v-if="$page.props.auth?.is_admin || $page.props.auth?.is_client"
-                                :href="$page.props.auth?.is_admin?route('admin.chat.index'):route('chat.index')"
-                                class="text-gray-700 dark:text-white"
-                                :active="$page.props.auth?.is_admin?route().current('admin.chat.index'):route().current('chat.index')
-                                 ">
-                                {{ $page.props.translations.chat}}
 
-                            </NavLink>
                         </div>
                     </div>
 
@@ -146,9 +138,25 @@ onMounted(() => {
 
             <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                 <div class="space-y-1 pb-3 pt-2">
-                    <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                        Dashboard
+                    <ResponsiveNavLink :href="$page.props.auth?.is_admin? route('admin.dashboard.index'):route('dashboard')" :active="$page.props.auth?.is_admin?route().current('admin.dashboard.index'):route().current('dashboard')">
+                        {{ $page.props.translations.dashboard}}
+
                     </ResponsiveNavLink>
+                    <ResponsiveNavLink v-if="$page.props.auth?.is_admin" :href="route('admin.logs.index')" :active="route().current('admin.logs.index')">
+                        {{ $page.props.translations.logs}}
+
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink v-if="$page.props.auth?.is_admin" :href="route('admin.requests.index')" :active="route().current('admin.requests.index')">
+                        {{ $page.props.translations.requests}}
+
+                    </ResponsiveNavLink>
+                    <button
+                        @click="toggleTheme"
+                        class="mt-2 w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 rounded transition"
+                    >
+                        {{ isDark ? '🌙 Dark Mode' : '☀️ Light Mode' }}
+                    </button>
+
                 </div>
 
                 <div class="border-t border-gray-200 dark:border-gray-700 pb-1 pt-4">

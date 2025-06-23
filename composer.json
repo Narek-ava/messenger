@@ -16,8 +16,6 @@
         "mcamara/laravel-localization": "^2.3",
         "opcodesio/log-viewer": "*",
         "pusher/pusher-php-server": "*",
-        "rtippin/messenger": "^1.24",
-        "rtippin/messenger-ui": "^2.7",
         "spatie/laravel-medialibrary": "^11.13",
         "spatie/laravel-permission": "^6.20",
         "spatie/laravel-sluggable": "^3.7",

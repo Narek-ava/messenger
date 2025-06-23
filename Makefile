@@ -23,6 +23,17 @@ npm-dev:
 
 migrate:
 	docker exec -it laravel_app php artisan migrate
+permission:
+	docker exec -it laravel_app php artisan sync:roles-permissions
+admin:
+	docker exec -it laravel_app php artisan make:admin avagyan.narek95@gmail.com
+
+cache-clean:
+	docker exec -it laravel_app php artisan config:clear
+	docker exec -it laravel_app php artisan cache:clear
+	docker exec -it laravel_app php artisan config:cache
+	docker exec -it laravel_app composer dump-autoload
+
 
 seed:
 	docker exec -it laravel_app php artisan db:seed
