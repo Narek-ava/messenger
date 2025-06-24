@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Stevebauman\Location\Facades\Location;
-use Illuminate\Support\Facades\Log;
 
 class SetLocale
 {
