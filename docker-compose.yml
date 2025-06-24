@@ -90,21 +90,23 @@ services:
             - "6379:6379"
         networks:
             - app-network
-    queue:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: laravel_queue_worker
-        working_dir: /var/www
-        volumes:
-            - .:/var/www
-        command: php artisan queue:work --verbose --tries=3 --timeout=90
-        depends_on:
-            - mysql
-            - redis
-            - app
-        networks:
-            - app-network
+#    queue:
+#        build:
+#            context: .
+#            dockerfile: Dockerfile
+#        container_name: laravel_queue_worker
+#        env_file:
+#            - .env
+#        working_dir: /var/www
+#        volumes:
+#            - .:/var/www
+#        command: php artisan queue:work --verbose --tries=3 --timeout=90
+#        depends_on:
+#            - mysql
+#            - redis
+#            - app
+#        networks:
+#            - app-network
 networks:
     app-network:
         driver: bridge
