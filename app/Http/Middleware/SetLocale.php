@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Lang;
 use Inertia\Inertia;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\Log;
 
 class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
-        // Если пользователь уже выбирал язык — используем его
         if ($request->session()->has('locale')) {
             $locale = $request->session()->get('locale');
         } else {
@@ -30,7 +30,7 @@ class SetLocale
         return $next($request);
     }
 
-    private function determineLocaleByGeo(Request $request): string
+    public function determineLocaleByGeo(Request $request): string
     {
         $ip = request()->ip();
 
@@ -41,6 +41,7 @@ class SetLocale
         try {
             $position = Location::get($ip);
             $country = $position?->countryCode ?? null;
+		Log::info('Referer IP',[$ip,$country]);
         } catch (\Exception $e) {
             $country = null;
         }
