@@ -46,6 +46,12 @@ return [
             ],
         ],
 
+        'redis' => [
+            'driver' => 'redis',
+            'connection' => 'default', // имя подключения из config/database.php -> redis.connections
+            'prefix' => env('BROADCAST_PREFIX', ''),
+        ],
+
         'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),

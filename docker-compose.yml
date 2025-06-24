@@ -13,6 +13,7 @@ services:
             - .env
         depends_on:
             - mysql
+            - redis
         networks:
             - app-network
 
@@ -70,12 +71,13 @@ services:
             - app-network
     laravel-echo-server:
         build:
-            context: ./docker/laravel-echo-server
+            context: .
+            dockerfile: docker/laravel-echo-server/Dockerfile
         container_name: laravel_echo_server
         ports:
             - "6001:6001"
         volumes:
-            - .:/usr/src/app
+            - ./laravel-echo-server.json:/usr/src/app/laravel-echo-server.json
 
         depends_on:
             - redis

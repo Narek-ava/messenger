@@ -51,5 +51,11 @@ test:
 	docker exec -it laravel_app php artisan test
 
 
-reverb:
-	docker exec -it laravel_app php artisan reverb:start
+socket-test:
+	docker exec -it laravel_app php artisan app:send-test-event
+queue:
+	docker exec -it laravel_app php artisan queue:work
+socket-restart:
+	docker exec -it laravel_echo_server laravel-echo-server restart
+socket-init:
+	docker exec -it laravel_echo_server laravel-echo-server init

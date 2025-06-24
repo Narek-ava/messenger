@@ -8,8 +8,7 @@ WORKDIR /usr/src/app
 RUN npm install -g laravel-echo-server
 
 # Копируем файл конфигурации внутрь контейнера (лучше смонтировать volume, но на всякий случай)
-# COPY laravel-echo-server.json ./laravel-echo-server.json
-
+COPY laravel-echo-server.json ./laravel-echo-server.json
 # Открываем порт 6001 для WebSocket
 EXPOSE 6001
 

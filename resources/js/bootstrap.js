@@ -1,21 +1,32 @@
 import axios from 'axios';
 import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
+import io from 'socket.io-client'; // вот это нужно для socket.io
 
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.Pusher = Pusher;
+window.io = io; // обязательно, Echo использует его внутри
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    forceTLS: true,
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001',
+    logToConsole: true,
+    transports: ['websocket', 'polling', 'flashsocket'],
 });
-
+console.log(window.Echo.connector.socket,'http://' +window.location.hostname + ':6001')
 window.Echo.channel('some-channel')
     .listen('SomeTestEvent', (e) => {
-        console.log('📡 Received broadcast:', e.message);
+        console.log('📡📡📡📡📡📡📡📡 Received event:', e);
     });
+window.Echo.connector.socket.on('connect', () => {
+    console.log('Socket connected 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
+});
+
+window.Echo.connector.socket.on('connect_error', (err) => {
+    console.log('Socket connection error:', err);
+});
+
+window.Echo.connector.socket.on('disconnect', () => {
+    console.log('Socket disconnected');
+});

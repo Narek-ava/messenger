@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Events\SomeTestEvent;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Broadcast;
 
 class SendTestEvent extends Command
 {
@@ -26,7 +27,7 @@ class SendTestEvent extends Command
      */
     public function handle()
     {
-        event(new SomeTestEvent(['message' => 'Hello from CLI!']));
+        broadcast(new SomeTestEvent());
         $this->info('Event sent!');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Stevebauman\Location\Facades\Location;
@@ -37,7 +38,7 @@ class SetLocale
         if ($ip === '172.18.0.1' || $ip === '127.0.0.1') {
             $ip = '146.70.52.62';
         }
-
+        Log::info('Referer IP',[$ip]);
         try {
             $position = Location::get($ip);
             $country = $position?->countryCode ?? null;

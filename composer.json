@@ -20,6 +20,7 @@
         "spatie/laravel-permission": "^6.20",
         "spatie/laravel-sluggable": "^3.7",
         "spatie/laravel-translatable": "^6.11",
+        "spomky-labs/otphp": "*",
         "stevebauman/location": "^7.5",
         "tightenco/ziggy": "^2.0",
         "torann/geoip": "^3.0"

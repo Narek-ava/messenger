@@ -4,32 +4,33 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class SomeTestEvent
+class SomeTestEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
 
     /**
      * Create a new event instance.
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data = $data;
     }
 
     // Канал для вещания
     public function broadcastOn()
     {
+        Log::info('Broadcasted SomeTestEvent');
+
         return new Channel('some-channel');
     }
 
     public function broadcastWith()
     {
-        return ['data' => $this->data];
+        return ['data' => 'Testing websocket'];
     }
 }
