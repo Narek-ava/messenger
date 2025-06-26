@@ -24,6 +24,9 @@ function setTheme(dark) {
 
 function toggleTheme() {
     setTheme(!isDark.value)
+    window.dispatchEvent(new CustomEvent('theme-changed', {
+        detail: { theme: isDark.value ? 'dark' : 'light' }
+    }))
 }
 
 onMounted(() => {
@@ -77,6 +80,15 @@ onMounted(() => {
                                 {{ $page.props.translations.requests}}
 
                             </NavLink>
+                            <NavLink
+                                v-if="$page.props.auth?.is_admin"
+                                :href="route('admin.chat.index')"
+                                class="text-gray-700 dark:text-white"
+                                :active="route().current('admin.chat.index')
+                                 ">
+                                {{ $page.props.translations.chat}}
+
+                            </NavLink>
 
                         </div>
                     </div>
@@ -102,14 +114,14 @@ onMounted(() => {
                                 </template>
 
                                 <template #content>
-                                    <DropdownLink :href="route('profile.edit')">Profile</DropdownLink>
-                                    <DropdownLink :href="route('logout')" method="post" as="button">Log Out
+                                    <DropdownLink :href="route('profile.edit')">{{ $page.props.translations.profile}}</DropdownLink>
+                                    <DropdownLink :href="route('logout')" method="post" as="button">{{ $page.props.translations.logout}}
                                     </DropdownLink>
                                     <button
                                         @click="toggleTheme"
                                         class="mt-2 w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 rounded transition"
                                     >
-                                        {{ isDark ? '🌙 Dark Mode' : '☀️ Light Mode' }}
+                                        {{ isDark ? '🌙 ' + $page.props.translations.dark_mode : '☀️ ' + $page.props.translations.light_mode }}
                                     </button>
                                 </template>
                             </Dropdown>
@@ -148,6 +160,10 @@ onMounted(() => {
                     </ResponsiveNavLink>
                     <ResponsiveNavLink v-if="$page.props.auth?.is_admin" :href="route('admin.requests.index')" :active="route().current('admin.requests.index')">
                         {{ $page.props.translations.requests}}
+
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink v-if="$page.props.auth?.is_admin" :href="route('admin.chat.index')" :active="route().current('admin.chat.index')">
+                        {{ $page.props.translations.chat}}
 
                     </ResponsiveNavLink>
                     <button

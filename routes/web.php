@@ -54,6 +54,7 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(functio
     Route::get('/logs', [AdminLogsController::class, 'index'])->name('admin.logs.index');
 
     Route::get('/requests', [AdminRequestsController::class, 'index'])->name('admin.requests.index');
+    Route::get('/chat', [ChatController::class, 'index'])->name('admin.chat.index');
 
 });
 

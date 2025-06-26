@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+input:not([type="checkbox"], [type="radio"]) {
+    height: 45px;
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 1px 1px 5px #eee;
+}
+input:not([type="checkbox"], [type="radio"]):focus-visible {
+    outline: none;
+    box-shadow: 1px 1px 5px #adadad;
+}

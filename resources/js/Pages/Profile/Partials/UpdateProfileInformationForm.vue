@@ -36,7 +36,7 @@ const form = useForm({
 
         <form
             @submit.prevent="form.patch(route('profile.update'))"
-            class="mt-6 space-y-6"
+            class="mt-6 space-y-6 edit-profile"
         >
             <div>
                 <InputLabel for="name" value="Name" />

@@ -6,7 +6,7 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.io = io; // обязательно, Echo использует его внутри
+window.io = io;
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
@@ -14,7 +14,6 @@ window.Echo = new Echo({
     logToConsole: true,
     transports: ['websocket', 'polling', 'flashsocket'],
 });
-console.log(window.Echo.connector.socket,'http://' +window.location.hostname + ':6001')
 window.Echo.channel('some-channel')
     .listen('SomeTestEvent', (e) => {
         console.log('📡📡📡📡📡📡📡📡 Received event:', e);
